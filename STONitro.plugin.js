@@ -6,7 +6,7 @@
  * @invite adamg
  * @source https://github.com/loxyteck
  * @donate https://github.com/loxyteck
- * @updateUrl https://raw.githubusercontent.com/loxyteck/nitrobysto/refs/heads/main/YABDP4Nitro.plugin.js
+ * @updateUrl https://raw.githubusercontent.com/loxyteck/nitrobysto/refs/heads/main/STONitro.plugin.js
  * @description Unlock all screensharing modes, use cross-server & GIF emotes, and more!
  */
 /*@cc_on
@@ -4574,3 +4574,4 @@ module.exports = class YABDP4Nitro {
 };
 // #endregion
 /*@end@*/
+
