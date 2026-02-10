@@ -1,5 +1,5 @@
 /**
- * @name  STO-Nitro
+ * @name  STONitro
  * @author Shouto
  * @authorLink https://github.com/loxyteck
  * @version 6.7.6
@@ -4574,6 +4574,7 @@ module.exports = class S {
 };
 // #endregion
 /*@end@*/
+
 
 
 
