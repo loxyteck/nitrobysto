@@ -4,7 +4,7 @@
  * @authorLink https://github.com/loxyteck
  * @version 6.7.6
  * @invite adamg
- * @source https://github.com/loxyteck
+ * @source https://github.com/loxyteck/nitrobysto/releases/tag/%261
  * @donate https://github.com/loxyteck
  * @updateUrl https://raw.githubusercontent.com/loxyteck/nitrobysto/refs/heads/main/STONitro.plugin.js
  * @description Unlock all screensharing modes, use cross-server & GIF emotes, and more!
@@ -4574,6 +4574,7 @@ module.exports = class S {
 };
 // #endregion
 /*@end@*/
+
 
 
 
