@@ -377,7 +377,7 @@ const config = {
                 { type: "switch", id: "killProfileEffects", name: "Kill Profile Effects", note: "Hate profile effects? Enable this and they'll be gone. All of them. Overrides all profile effects.", value: () => settings.killProfileEffects },
                 { type: "switch", id: "customPFPs", name: "Fake Profile Pictures", note: "Uses invisible 3y3 encoding to allow setting custom profile pictures by hiding an image URL IN YOUR CUSTOM STATUS. Only supports Imgur URLs for security reasons.", value: () => settings.customPFPs },
                 { type: "switch", id: "userPfpIntegration", name: "UserPFP Integration", note: "Imports the UserPFP database so that people who have profile pictures in the UserPFP database will appear with their UserPFP profile picture. There's little reason to disable this.", value: () => settings.userPfpIntegration },
-                { type: "switch", id: "disableUserBadge", name: "Disable User Badge", note: "Disables the YABDP4Nitro User Badge which appears on any user that uses Profile Customization. (client side)", value: () => settings.disableUserBadge },
+                { type: "switch", id: "disableUserBadge", name: "Disable User Badge", note: "Disables the STONitro User Badge which appears on any user that uses Profile Customization. (client side)", value: () => settings.disableUserBadge },
                 { type: "switch", id: "nameplatesEnabled", name: "Fake Nameplates", note: "Uses invisible 3y3 encoding to allow setting fake nameplates by hiding the information in your custom status and/or bio. Please paste the 3y3 in one or both of those areas.", value: () => settings.nameplatesEnabled },
                 { type: "switch", id: "displayNameStyles", name: "Fake Display Name Styles", note: "Uses invisible 3y3 encoding to allow setting fake display name styles by hiding the information in your bio. Please paste the 3y3 information in your bio.", value: () => settings.displayNameStyles }
             ]
@@ -430,7 +430,7 @@ const config = {
         }
 
     ],
-    "main": "YABDP4Nitro.plugin.js"
+    "main": "S.plugin.js"
 };
 // #endregion
 
@@ -478,7 +478,7 @@ function ResizeFindingElement({id, onResize}){
 //#endregion
 
 // #region Exports
-module.exports = class YABDP4Nitro {
+module.exports = class S {
     constructor(meta){
         this.meta = meta;
     }
@@ -703,7 +703,7 @@ module.exports = class YABDP4Nitro {
             }
         }
 
-        DOM.removeStyle("YABDP4NitroBadges");
+        DOM.removeStyle("SBadges");
         try {
             this.honorBadge();
         } catch(err){
@@ -1494,7 +1494,7 @@ module.exports = class YABDP4Nitro {
                         width: "auto",
                         height: "30px"
                     },
-                    children: "Change Nameplate [YABDP4Nitro]",
+                    children: "Change Nameplate [S]",
                     onClick: () => {
                         UI.showConfirmationModal("Change Nameplate", React.createElement(NameplateList, {NameplatePreviewName}), {cancelText: ""})
                     }
@@ -1541,7 +1541,7 @@ module.exports = class YABDP4Nitro {
                 if(RightButtonGroup) {
                     RightButtonGroup.splice(2,0,React.createElement("button",{
                         class: "yabd-resolution-swapper-v2-button",
-                        children: 'YABD',
+                        children: 'STO',
                         onClick: () => {
                             let localStreamOptions = {
                                 resolutionToSet: undefined,
@@ -1943,7 +1943,7 @@ module.exports = class YABDP4Nitro {
 
                         //AVI file warning
                         if(currentFile.file.type == "video/avi"){
-                            UI.showToast("[YABDP4Nitro] NOTE: AVI Files may send, but HTML5 and MP4 do not support all AVI video codecs, it may not play and FFmpeg may error!", { type: "warning" });
+                            UI.showToast("[S] NOTE: AVI Files may send, but HTML5 and MP4 do not support all AVI video codecs, it may not play and FFmpeg may error!", { type: "warning" });
                         }
                         try {
                             let arrayBuffer = await currentFile.file.arrayBuffer();
@@ -2182,7 +2182,7 @@ module.exports = class YABDP4Nitro {
         }
 
         async function fetchAndRetryWithNetFetch(filename){            
-            const ffmpeg_js_baseurl = "https://raw.githubusercontent.com/riolubruh/YABDP4Nitro/refs/heads/main/ffmpeg/";
+            const ffmpeg_js_baseurl = "https://raw.githubusercontent.com/riolubruh/S/refs/heads/main/ffmpeg/";
             let res = await fetch(ffmpeg_js_baseurl + filename, { timeout: 100000, cache: "force-cache" });
             if(res.ok || res.status == 200) {
                 return res;
@@ -2581,7 +2581,7 @@ module.exports = class YABDP4Nitro {
                 matchedText += ".gif"; //No supported file extension detected. Falling back to a default file extension.
             }
 
-            //add this user to the list of users who have the YABDP4Nitro user badge if we haven't added them already.
+            //add this user to the list of users who have the S user badge if we haven't added them already.
             if(!badgeUserIDs.includes(user.id)) badgeUserIDs.push(user.id);
 
             //return imgur url
@@ -2759,22 +2759,22 @@ module.exports = class YABDP4Nitro {
                 badgesList.push(ret.badges[i].id); //add each of this user's badge IDs to badgesList
             }
 
-            // if list of users that should have yabdp_user badge includes current user,
+            // if list of users that should have STO_user badge includes current user,
             // and they don't already have the badge applied,
             // and the user badge isn't disabled,
-            if(badgeUserIDs.includes(ret.userId) && !badgesList.includes("yabdp_user") && !settings.disableUserBadge){
-                //add the yabdp user badge to the user's list of badges.
+            if(badgeUserIDs.includes(ret.userId) && !badgesList.includes("STO_user") && !settings.disableUserBadge){
+                //add the STO user badge to the user's list of badges.
                 ret.badges.push({
-                    id: "yabdp_user",
+                    id: "STO_user",
                     icon: "2ba85e8026a8614b640c2837bcdfe21b", //Nitro icon, gets replaced later.
                     description: "Nitro",
-                    link: "https://github.com/riolubruh/YABDP4Nitro" //this link opens upon clicking the badge.
+                    link: "https://github.com/riolubruh/S" //this link opens upon clicking the badge.
                 });
             }
 
             //remove user badge if it is disabled
             if(settings.disableUserBadge){
-                let userBadgeIndex = ret.badges.findIndex(badge => badge.id == "yabdp_user");
+                let userBadgeIndex = ret.badges.findIndex(badge => badge.id == "STO_user");
                 if(userBadgeIndex > -1){
                     ret.badges.splice(userBadgeIndex, 1);
                     badgesList.splice(userBadgeIndex, 1);
@@ -2782,13 +2782,13 @@ module.exports = class YABDP4Nitro {
             }
 
             //if this user is Riolubruh, and they don't already have the badge applied,
-            if(ret.userId == "1136773028840218755" && !badgesList.includes("yabdp_creator")){
-                //add the yabdp creator badge to riolubruh's list of badges.
+            if(ret.userId == "1136773028840218755" && !badgesList.includes("STO_creator")){
+                //add the STO creator badge to riolubruh's list of badges.
                 ret.badges.push({
-                    id: "yabdp_creator",
+                    id: "STO_creator",
                     icon: "2ba85e8026a8614b640c2837bcdfe21b", //Nitro icon, gets replaced later.
                     description: "Creator",
-                    link: "https://github.com/riolubruh/YABDP4Nitro" //this link opens upon clicking the badge.
+                    link: "https://github.com/riolubruh/S" //this link opens upon clicking the badge.
                 });
             }
 
@@ -2803,13 +2803,13 @@ module.exports = class YABDP4Nitro {
             ];
 
             //if the currently processed user is included in specialThanks, and they don't already have the badge applied,
-            if(ret.userId=="1136773028840218755" && !badgesList.includes("yabdp_contributor")){
-                //add the yabdp contributor badge to the contributor's list of badges
+            if(ret.userId=="1136773028840218755" && !badgesList.includes("STO_contributor")){
+                //add the STO contributor badge to the contributor's list of badges
                 ret.badges.push({
-                    id: "yabdp_contributor",
+                    id: "STO_contributor",
                     icon: "2ba85e8026a8614b640c2837bcdfe21b", //Nitro icon, gets replaced later.
                     description: "Partner",
-                    link: "https://github.com/riolubruh/YABDP4Nitro#contributors" //this link opens upon clicking the badge.
+                    link: "https://github.com/riolubruh/S#contributors" //this link opens upon clicking the badge.
                 });
             }
 
@@ -2903,7 +2903,7 @@ module.exports = class YABDP4Nitro {
 
                     //if for some reason we dont know what this user's ID is, stop here
                     if(args == undefined) return;
-                    //otherwise add them to the list of users who show up with the YABDP4Nitro user badge
+                    //otherwise add them to the list of users who show up with the S user badge
                     if(!badgeUserIDs.includes(args)) badgeUserIDs.push(args);
                 }
             }
@@ -3119,7 +3119,7 @@ module.exports = class YABDP4Nitro {
                     sku_id: "0" //dummy sku id
                 };
 
-                //add user to the list of users to show with the YABDP4Nitro user badge if we haven't already.
+                //add user to the list of users to show with the S user badge if we haven't already.
                 if(!badgeUserIDs.includes(ret.id)) badgeUserIDs.push(ret.id);
             }
         }); //end of getUser patch for avatar decorations
@@ -4109,7 +4109,7 @@ module.exports = class YABDP4Nitro {
                 //set this profile to appear with premium rendering
                 profile.premiumType = 2;
 
-                //add this user to the list of users that show with the YABDP4Nitro user badge if we haven't aleady.
+                //add this user to the list of users that show with the S user badge if we haven't aleady.
                 if(!badgeUserIDs.includes(user.userId)) badgeUserIDs.push(user.userId);
 
                 //return final banner URL.
@@ -4344,7 +4344,7 @@ module.exports = class YABDP4Nitro {
             }
         }
         catch(err){
-            UI.showToast("[YABDP4Nitro] Failed to check for updates", { type: "error" });
+            UI.showToast("[S] Failed to check for updates", { type: "error" });
             Logger.error(err);
         }
 
@@ -4354,7 +4354,7 @@ module.exports = class YABDP4Nitro {
         Logger.info(`Update ${remoteMeta.version} is available!`);
 
         UI.showNotification({
-            title: "YABDP4Nitro Update Available!",
+            title: "S Update Available!",
             content: `Update ${remoteMeta.version} is now available!`,
             actions: [{
                 label: "Update",
@@ -4437,7 +4437,7 @@ module.exports = class YABDP4Nitro {
 
             if(!currentVersionInfo.hasShownChangelog){
                 UI.showChangelogModal({
-                    title: "YABDP4Nitro Changelog",
+                    title: "S Changelog",
                     subtitle: config.changelog[0].title,
                     changes: [{
                         title: config.changelog[0].title,
@@ -4453,7 +4453,7 @@ module.exports = class YABDP4Nitro {
             Logger.error(err);
         }
 
-        DOM.addStyle("YABDP4NitroGeneral", `
+        DOM.addStyle("SGeneral", `
             /*wow it's discord css code*/
             .yabd-text-h5 {
                 line-height: 20px;
@@ -4556,8 +4556,8 @@ module.exports = class YABDP4Nitro {
         CurrentUser.premiumType = ORIGINAL_NITRO_STATUS;
         Patcher.unpatchAll();
         Dispatcher.unsubscribe("COLLECTIBLES_CATEGORIES_FETCH_SUCCESS", this.storeProductsFromCategories);
-        DOM.removeStyle("YABDP4NitroBadges");
-        DOM.removeStyle("YABDP4NitroGeneral");
+        DOM.removeStyle("SBadges");
+        DOM.removeStyle("SGeneral");
         ContextMenu.unpatch('expression-picker', this.expressionPickerFunction);
         ContextMenu.unpatch('stream-context', this.streamContextPatch);
         
@@ -4574,4 +4574,3 @@ module.exports = class YABDP4Nitro {
 };
 // #endregion
 /*@end@*/
-
